@@ -32,7 +32,7 @@ jobs:
       - name: Run Build
         run: pnpm run build
       - name: Run Lighthouse Box
-        uses:
+        uses: abordage/lighthouse-box@1.0.2
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_ID: 183e93e101576aaf73381ea9d2f6c7ef
