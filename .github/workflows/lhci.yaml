@@ -33,12 +33,11 @@ jobs:
         run: pnpm run build
       - name: Run Custom Action
         id: run_custom_action
-        uses: seungjaey/lighthouse-ci-action@v0.0.3
+        uses: seungjaey/lhci-custom-action@v0.0.1
         with:
           INPUT_URL_PREFIX: http://localhost:3000
           INPUT_URL_LIST: |
-            [상품상세] 싱글 콘텐츠__SEP__/goods/5063942
-            [상품상세] 멀티 콘텐츠__SEP__/goods/5094163
-            [상품상세] 옵션형 콘텐츠__SEP__/goods/1000001181
-            [상품상세] 캘린더형 콘텐츠__SEP__/goods/1000001210
+            [상품상세] 싱글 콘텐츠__SEP__/
+            [상품상세] 멀티 콘텐츠__SEP__/about
+            [상품상세] 옵션형 콘텐츠__SEP__/faq
           INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
