@@ -21,13 +21,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Set up npm
-        run: npm ci
+      - name: Install dependencies
+        run: npm install
       - name: Run Build
         run: npm run build
-      - name: Run Lighthouse Box
-        uses: abordage/lighthouse-box@1.0.2
+      - name: Run Custom Action
+        id: run_custom_action
+        uses: seungjaey/lhci-custom-action@v0.0.8
         with:
+          INPUT_URL_PREFIX: http://localhost:3000
+          INPUT_URL_LIST: |
+            [상품상세] 싱글 콘텐츠__SEP__/
+            [상품상세] 멀티 콘텐츠__SEP__/about
+            [상품상세] 옵션형 콘텐츠__SEP__/faq
           INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_GIST_ID: 183e93e101576aaf73381ea9d2f6c7ef
-          INPUT_TEST_URL: https://hamtolchu.dev/
