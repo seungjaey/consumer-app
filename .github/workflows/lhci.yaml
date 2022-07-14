@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run Build
-        run: pnpm run build:dev
+        run: pnpm run build
       - name: Run Custom Action
         id: run_custom_action
         uses: seungjaey/lighthouse-ci-action@v0.0.3
