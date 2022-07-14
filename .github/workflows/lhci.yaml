@@ -33,7 +33,7 @@ jobs:
         run: pnpm run build
       - name: Run Custom Action
         id: run_custom_action
-        uses: seungjaey/lhci-custom-action@v0.0.3
+        uses: seungjaey/lhci-custom-action@v0.0.4
         with:
           INPUT_URL_PREFIX: http://localhost:3000
           INPUT_URL_LIST: |
