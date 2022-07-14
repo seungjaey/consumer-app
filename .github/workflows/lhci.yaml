@@ -34,6 +34,6 @@ jobs:
       - name: Run Lighthouse Box
         uses: abordage/lighthouse-box@1.0.2
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIST_ID: 183e93e101576aaf73381ea9d2f6c7ef
-          URL: https://hamtolchu.dev/
+          INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_GIST_ID: 183e93e101576aaf73381ea9d2f6c7ef
+          INPUT_TEST_URL: https://hamtolchu.dev/
