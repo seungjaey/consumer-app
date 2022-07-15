@@ -27,12 +27,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: npm install
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
+      - name: Create lighthouserc.json per Formfactor
+        id: create-lighthouse-configs
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0
         with:
-          urls: |
+          URL_PREFIX: http://localhost:3000
+          URL_LIST: |
             https://hamtolchu.dev/
             https://hamtolchu.dev/posts
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
-
+      - name: Check Result - Mobile
+        run: echo "${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}"
+       - name: Check Result - Desktop
+        run: echo "${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}"
+      - name: Check File - Mobile
+        run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }})
+      - name: Check File - Desktop
+        run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }})
