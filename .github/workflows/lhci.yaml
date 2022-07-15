@@ -29,7 +29,7 @@ jobs:
         run: npm install
       - name: Create lighthouserc.json per Formfactor
         id: create-lighthouse-configs
-        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.1
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.2
         with:
           URL_PREFIX: http://localhost:3000
           URL_LIST: |
@@ -43,6 +43,10 @@ jobs:
         run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }})
       - name: Check File - Desktop
         run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }})
+      - name: Check REPORT_DIR_NAME
+        run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }})
+      - name: Check URL_LIST_JSON_STRING
+        run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }})
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
       - name: Run Lighthouse-CI Mobile
