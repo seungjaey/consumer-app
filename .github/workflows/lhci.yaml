@@ -29,7 +29,7 @@ jobs:
         run: npm install
       - name: Create lighthouserc.json per Formfactor
         id: create-lighthouse-configs
-        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.0
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.1
         with:
           URL_PREFIX: http://localhost:3000
           URL_LIST: |
