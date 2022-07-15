@@ -25,16 +25,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.2.2
-        id: pnpm-install
-        with:
-          version: 7.5.0
-          run_install: false
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Run Build
-        run: pnpm run build:dev
+        run: npm run build
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v9
         with:
