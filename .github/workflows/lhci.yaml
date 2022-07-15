@@ -27,12 +27,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Audit URLs using Lighthouse
         id: lighthouse
-        uses: seungjaey/lighthouse-action@v0.0.beta-0
+        uses: seungjaey/action-playground@v0.0.beta-0
         with:
-          INPUT_URL_PREFIX: https://hamtolchu.dev
-          INPUT_URL_LIST: |
-            [상품상세] 싱글 콘텐츠__SEP__/
-            [상품상세] 멀티 콘텐츠__SEP__/about
-          INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          URL_PREFIX: https://hamtolchu.dev
+          URL_LIST: |
+            홈__SEP__/
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check output
-        run: echo ${{ steps.lighthouse.output.REPORT_MD_STR }}
+        with:
+          MD_STR: ${{ steps.lighthouse.output.MD_STRING }}
+        run: echo $MD_STR
