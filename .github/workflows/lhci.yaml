@@ -30,7 +30,7 @@ jobs:
       - name: Run Build
         run: npm run build
       - name: Audit URLs using Lighthouse
-        uses: seungjae/lighthouse-action@v0.0.beta-0
+        uses: seungjae/lighthouse-action@v0.0.beta-1
         with:
           configPath: ./.lighthouserc.json
           uploadArtifacts: true # save results as an action artifacts
