@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Working dir check
         run: echo $(pwd)
+      - name: Meaningless
+        run: echo 1
       - name: Check Chrome
         run: echo $CHROME_PATH
       - name: Checkout
