@@ -25,20 +25,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: Run Build
-        run: npm run build
       - name: Audit URLs using Lighthouse
         id: lighthouse
         uses: seungjaey/lighthouse-action@v0.0.beta-0
         with:
-          INPUT_URL_PREFIX: http://localhost:3000
+          INPUT_URL_PREFIX: https://hamtolchu.dev
           INPUT_URL_LIST: |
-            [상품상세] 싱글 콘텐츠__SEP__/goods/5063942
-            [상품상세] 멀티 콘텐츠__SEP__/goods/5094163
-            [상품상세] 옵션형 콘텐츠__SEP__/goods/1000001181 
-            [상품상세] 캘린더형 콘텐츠__SEP__/goods/1000001210
+            [상품상세] 싱글 콘텐츠__SEP__/
+            [상품상세] 멀티 콘텐츠__SEP__/about
           INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check output
-        run: echo ${{ steps.lighthouse.output.OUTPUT_MD }}
+        run: echo ${{ steps.lighthouse.output.REPORT_MD_STR }}
