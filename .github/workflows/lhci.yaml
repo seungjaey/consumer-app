@@ -32,7 +32,7 @@ jobs:
         with:
           urls: |
             https://hamtolchu.dev/
-            https://hamtolchu.dev/blog
+            https://hamtolchu.dev/posts
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 

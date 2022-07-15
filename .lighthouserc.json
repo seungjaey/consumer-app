@@ -6,7 +6,7 @@
       "additive": false,
       "url": [
         "https://hamtolchu.dev/",
-        "https://hamtolchu.dev/photos"
+        "https://hamtolchu.dev/posts"
       ],
       "startServerCommand": "npm run dev",
       "startServerReadyPattern": "started server on",
