@@ -37,7 +37,7 @@ jobs:
             https://hamtolchu.dev/posts
       - name: Check Result - Mobile
         run: echo "${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}"
-       - name: Check Result - Desktop
+      - name: Check Result - Desktop
         run: echo "${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}"
       - name: Check File - Mobile
         run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }})
