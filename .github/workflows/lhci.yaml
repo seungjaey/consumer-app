@@ -43,3 +43,17 @@ jobs:
         run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }})
       - name: Check File - Desktop
         run: echo $(cat ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }})
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+      - name: Run Lighthouse-CI Mobile
+        run: lhci autorun --config ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}
+      - name: Run Lighthouse-CI Desktop
+        run: lhci autorun --config ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}
+      - name: Check Mobile Result
+        run: echo $(ls ./.lighthouse-report/mobile)
+      - name: Check Mobile Result - Manifest
+        run: echo $(ls ./.lighthouse-report/mobile/manifest.json)
+      - name: Check Mobile Result
+        run: echo $(ls ./.lighthouse-report/desktop)
+      - name: Check Desktop Result - Manifest
+        run: echo $(ls ./.lighthouse-report/desktop/manifest.json)
