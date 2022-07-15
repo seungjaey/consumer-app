@@ -27,6 +27,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: npm install
+      - name: Build
+        run: npm run build
       - name: Create lighthouserc.json per Formfactor
         id: create-lighthouse-configs
         uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.2
