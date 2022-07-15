@@ -33,8 +33,8 @@ jobs:
         with:
           URL_PREFIX: http://localhost:3000
           URL_LIST: |
-            https://hamtolchu.dev/
-            https://hamtolchu.dev/posts
+            홈__SEP__/
+            포스트__SEP__/posts
       - name: Check Result - Mobile
         run: echo "${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}"
       - name: Check Result - Desktop
