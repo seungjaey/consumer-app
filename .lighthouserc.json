@@ -1,0 +1,31 @@
+{
+  "ci": {
+    "collect": {
+      "method": "node",
+      "headful": false,
+      "additive": false,
+      "url": [
+        "https://hamtolchu.dev/",
+        "https://hamtolchu.dev/photos"
+      ],
+      "startServerCommand": "npm run start",
+      "startServerReadyPattern": "started server on",
+      "isSinglePageApplication": false,
+      "numberOfRuns": 1,
+      "psiStrategy": "desktop",
+      "settings": {
+        "preset": "desktop",
+        "chromeFlags": "--disable-dev-shm-usage --no-sandbox"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": "off",
+        "categories:accessibility": "off",
+        "categories:best-practices": "off",
+        "categories:seo": "off",
+        "categories:pwa": "off"
+      }
+    }
+  }
+}
