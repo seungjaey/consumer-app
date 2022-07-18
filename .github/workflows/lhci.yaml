@@ -1,8 +1,15 @@
 name: LHCI-PR
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
+  pull_request_target:
+    branches:
+      - 'main'
+      - 'feature/**'
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
 
 jobs:
   lhci:
@@ -13,6 +20,8 @@ jobs:
     steps:
       - name: Working dir check
         run: echo $(pwd)
+      - name: Meaningless
+        run: echo 1
       - name: Check Chrome
         run: echo $CHROME_PATH
       - name: Checkout
@@ -23,22 +32,64 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.2.2
-        id: pnpm-install
+      - name: Install Packages
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Create lighthouserc.json per Formfactor
+        id: create-lighthouse-configs
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.5
         with:
-          version: 7.5.0
-          run_install: false
-      - name: Install dependencies
-        run: pnpm install
-      - name: Run Build
-        run: pnpm run build:dev
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
+          URL_PREFIX: http://localhost:3000
+          URL_LIST: |
+            홈__SEP__/
+            포스트__SEP__/posts
+      - name: Check Result - Mobile
+        run: echo "${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}"
+      - name: Check Result - Desktop
+        run: echo "${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}"
+      - name: Check File - Mobile
+        run: echo ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}
+      - name: Check File - Desktop
+        run: echo ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}
+      - name: Check REPORT_DIR_NAME
+        run: echo "${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}"
+      - name: Check URL_LIST_JSON_STRING
+        run: echo ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+      - name: Run Lighthouse-CI Mobile
+        run: lhci autorun --config ${{ steps.create-lighthouse-configs.outputs.MOBILE_CONFIG_FILE_NAME }}
+      - name: Run Lighthouse-CI Desktop
+        run: lhci autorun --config ${{ steps.create-lighthouse-configs.outputs.DESKTOP_CONFIG_FILE_NAME }}
+      - name: Check Mobile Result
+        run: echo $(ls ./.lighthouse-report/mobile)
+      - name: Check Mobile Result - Manifest
+        run: echo $(ls ./.lighthouse-report/mobile/manifest.json)
+      - name: Check Mobile Result
+        run: echo $(ls ./.lighthouse-report/desktop)
+      - name: Check Desktop Result - Manifest
+        run: echo $(ls ./.lighthouse-report/desktop/manifest.json)
+
+      - name: Parse Markdown
+        id: parse_lighthouse_report
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.5
         with:
-          urls: |
-            https://hamtolchu.dev/
-            https://hamtolchu.dev/photos
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
+          REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE_REPO_NAME: image-dummy
+          IMAGE_REPO_OWNER_NAME: seungjaey
+
+      - name: comment PR
+        id: comment_pr
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: ${{ steps.parse_lighthouse_report.outputs.REPORT_MD_STRING }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Lighthouse-CI
+          path: ./${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
