@@ -1,8 +1,5 @@
 name: LHCI-PR
 
-permissions:
-  contents: write
-
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
@@ -10,6 +7,9 @@ on:
 jobs:
   lhci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
     strategy:
       matrix:
         node-version: [ 14.16.1 ]
