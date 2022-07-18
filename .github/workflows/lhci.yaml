@@ -1,7 +1,7 @@
 name: LHCI-PR
 
 permissions:
-  contents: read|write
+  contents: write
 
 on:
   pull_request:
