@@ -8,8 +8,9 @@ jobs:
   lhci:
     runs-on: ubuntu-latest
     permissions:
+      checks: write
       contents: write
-      issues: write
+      pull-requests: write
     strategy:
       matrix:
         node-version: [ 14.16.1 ]
