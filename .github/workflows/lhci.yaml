@@ -2,7 +2,14 @@ name: LHCI-PR
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened, edited]
+    branches:
+      - 'main'
+      - 'feature/**'
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
 
 jobs:
   lhci:
