@@ -1,9 +1,7 @@
 name: LHCI-PR
 
 permissions:
-  actions: read
-  contents: read
-  security-events: write
+  contents: read|write
 
 on:
   pull_request:
