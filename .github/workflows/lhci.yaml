@@ -31,7 +31,7 @@ jobs:
         run: npm run build
       - name: Create lighthouserc.json per Formfactor
         id: create-lighthouse-configs
-        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.2
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.3
         with:
           URL_PREFIX: http://localhost:3000
           URL_LIST: |
@@ -63,6 +63,23 @@ jobs:
         run: echo $(ls ./.lighthouse-report/desktop)
       - name: Check Desktop Result - Manifest
         run: echo $(ls ./.lighthouse-report/desktop/manifest.json)
+
+      - name: Parse Markdown
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.0
+        with:
+          URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
+          REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE_REPO_NAME: image-dummy
+          IMAGE_REPO_OWNER_NAME: seungjaey
+
+      - name: comment PR
+        id: comment_pr
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: ${{ steps.format_lighthouse_score.outputs.REPORT_MD_STRING }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:

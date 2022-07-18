@@ -13,7 +13,7 @@ export default function Posts() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Posts</a>
         </h1>
 
         <p className={styles.description}>
