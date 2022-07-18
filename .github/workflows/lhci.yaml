@@ -71,7 +71,7 @@ jobs:
 
       - name: Parse Markdown
         id: parse_lighthouse_report
-        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.9
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.10
         with:
           URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
           REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
