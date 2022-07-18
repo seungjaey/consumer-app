@@ -31,7 +31,7 @@ jobs:
         run: npm run build
       - name: Create lighthouserc.json per Formfactor
         id: create-lighthouse-configs
-        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.3
+        uses: seungjaey/create-lighthouse-ci-config-files@v0.0.beta-0.4
         with:
           URL_PREFIX: http://localhost:3000
           URL_LIST: |
@@ -66,7 +66,7 @@ jobs:
 
       - name: Parse Markdown
         id: parse_lighthouse_report
-        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.0
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.1
         with:
           URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
           REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
