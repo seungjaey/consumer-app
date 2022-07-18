@@ -71,11 +71,11 @@ jobs:
 
       - name: Parse Markdown
         id: parse_lighthouse_report
-        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.6
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.7
         with:
           URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
           REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
-          GH_TOKEN: ${{ secrets.TOKEN }}
+          IMAGE_REPO_TOKEN: ${{ secrets.IMAGE_REPO_TOKEN }}
           IMAGE_REPO_NAME: image-dummy
           IMAGE_REPO_OWNER_NAME: seungjaey
 
