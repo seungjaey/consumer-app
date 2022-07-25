@@ -73,13 +73,13 @@ jobs:
 
       - name: Parse Markdown
         id: parse_lighthouse_report
-        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.5
+        uses: seungjaey/parse-lighthouse-report-to-md@v0.0.beta-0.12
         with:
           URL_LIST_JSON_STRING: ${{ steps.create-lighthouse-configs.outputs.URL_LIST_JSON_STRING }}
           REPORT_DIR_NAME: ${{ steps.create-lighthouse-configs.outputs.REPORT_DIR_NAME }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_REPO_NAME: image-dummy
-          IMAGE_REPO_OWNER_NAME: seungjaey
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: comment PR
         id: comment_pr
